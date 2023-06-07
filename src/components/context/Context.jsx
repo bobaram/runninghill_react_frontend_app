@@ -6,11 +6,43 @@ const SentenceContext = createContext();
 // Create the provider component
 const SentenceProvider = ({ children }) => {
   const [sentence, setSentence] = useState([]);
+  const [word, setWord] = useState(" ");
 
-  //   // Function to update the paragraph value
-  //   const updateSentence = (newSentence) => {
-  //     setSentence(newSentence);
-  //   };
+  const updateSentenceFn = (e) => {
+    if (e.target.getAttribute("id") === "word") {
+      setSentence((prev) => {
+        return [...prev, e.target.textContent];
+      });
+    }
+  };
+  const submitSentence = async () => {
+    const newSent = sentence.join(" ");
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/words/sentences",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ sentence: newSent }),
+        }
+      );
+
+      if (response.ok) {
+        setSentence([]);
+      }
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const handleSelection = (e) => {
+    setWord(e.target.value);
+    setSentence((prev) => {
+      return [...prev, e.target.value];
+    });
+  };
 
   const deleteSentence = () => {
     if (sentence.length) {
@@ -33,6 +65,10 @@ const SentenceProvider = ({ children }) => {
     sentence,
     deleteSentence,
     clearSentence,
+    updateSentenceFn,
+    handleSelection,
+    word,
+    submitSentence,
   };
 
   return (
