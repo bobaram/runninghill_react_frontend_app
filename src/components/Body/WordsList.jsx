@@ -1,5 +1,5 @@
-import WordsTop from "./WordListLeft";
-import WordsBottom from "./WordListRight";
+import WordsTop from "./WordsTop";
+import WordsBottom from "./WordsBottom";
 
 const WordList = () => {
   return (

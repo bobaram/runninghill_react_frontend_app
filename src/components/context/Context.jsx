@@ -1,13 +1,10 @@
 import React, { createContext, useState } from "react";
 
-// Create the context
 const SentenceContext = createContext();
 
-// Create the provider component
 const SentenceProvider = ({ children }) => {
   const [sentence, setSentence] = useState([]);
   const [word, setWord] = useState(" ");
-
   const updateSentenceFn = (e) => {
     if (e.target.getAttribute("id") === "word") {
       setSentence((prev) => {
@@ -29,11 +26,12 @@ const SentenceProvider = ({ children }) => {
         }
       );
 
-      if (response.ok) {
-        setSentence([]);
+      if (!response.ok) {
+        throw new Error("Bad request!");
       }
+      setSentence([]);
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
   };
 
