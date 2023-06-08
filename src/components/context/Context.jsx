@@ -15,16 +15,13 @@ const SentenceProvider = ({ children }) => {
   const submitSentence = async () => {
     const newSent = sentence.join(" ");
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/words/sentences",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ sentence: newSent }),
-        }
-      );
+      const response = await fetch(`${process.env.REACT_APP_SENTENCES_URL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sentence: newSent }),
+      });
 
       if (!response.ok) {
         throw new Error("Bad request!");

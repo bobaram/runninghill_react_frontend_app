@@ -16,7 +16,7 @@ const WordsBottom = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/api/words/wordlist?type=${wordType}`
+        `${process.env.REACT_APP_WORDS_URL}?type=${wordType}`
       );
 
       const data = await response.json();

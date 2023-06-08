@@ -26,9 +26,7 @@ const WordsTop = () => {
   const fetchCollectionNames = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/words/collections"
-      );
+      const response = await fetch(`${process.env.REACT_APP_COLLECTIONS_URL}`);
       const data = await response.json();
 
       setWordTypes(data);

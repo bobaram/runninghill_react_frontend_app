@@ -12,7 +12,7 @@ const Sentences = () => {
   const fetchSentences = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/api/words/sentences");
+      const response = await fetch(`${process.env.REACT_APP_SENTENCES_URL}`);
       const data = await response.json();
       setSentences(data);
       setLoading(false);
